@@ -5,8 +5,8 @@ import numpy as np
 
 # ================== PAGE CONFIG ==================
 st.set_page_config(
-    page_title="Brain Tumor Diagnosis",
-    page_icon="🧠",
+    page_title="Diabetes Prediction App",
+    page_icon="🩸",
     layout="centered"
 )
 
@@ -15,8 +15,8 @@ with open("diabetes_model.pkl", "rb") as f:
     Logr = pickle.load(f)
 
 # ================== HEADER ==================
-st.markdown("<h1 style='text-align:center;'>🧠 Brain Tumor Diagnosis System</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align:center;'>AI-assisted MRI image analysis</p>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align:center;'>💉 Diabetes Prediction App</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center;'>AI-assisted Diabetes Prediction</p>", unsafe_allow_html=True)
 st.markdown("---")
 
 

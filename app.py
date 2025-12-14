@@ -19,23 +19,40 @@ st.markdown("<p style='text-align:center;'>AI-Assisted Diabetes Risk Prediction<
 st.markdown("---")
 
 # ================== INPUT FIELDS ==================
-age = st.number_input("Age (years)", min_value=1, max_value=100, value=25)
-bmi = st.number_input("Body Mass Index (BMI)", min_value=10.0, max_value=60.0, value=25.0)
-insulin = st.number_input("Insulin Level (µU/mL)", min_value=0, max_value=900, value=100)
-glucose = st.number_input("Plasma Glucose Level (mg/dL)", min_value=50, max_value=200, value=120)
+age = st.number_input("Age (years)", 1, 100, 25)
+bmi = st.number_input("Body Mass Index (BMI)", 10.0, 60.0, 25.0)
+insulin = st.number_input("Insulin Level (µU/mL)", 0, 900, 100)
+glucose = st.number_input("Plasma Glucose Level (mg/dL)", 50, 200, 120)
 
 # ================== PREDICTION ==================
-if st.button("🔍 Predict"):
-    # Order MUST match training data
+if st.button("🔍 Predict Diabetes Risk"):
+
     input_data = np.array([[age, bmi, insulin, glucose]])
 
+    # Prediction (0 or 1)
     prediction = model.predict(input_data)[0]
 
-    if prediction == 1:
-        st.error("⚠️ The person is likely **Diabetic**.")
+    # Probability
+    probability = model.predict_proba(input_data)[0][1] * 100  # Diabetic %
+
+    st.markdown("### 🧪 Prediction Result")
+
+    if probability >= 70:
+        st.error(f"⚠️ **High Risk of Diabetes**\n\n"
+                 f"Confidence: **{probability:.2f}%**")
+    elif probability >= 40:
+        st.warning(f"⚠️ **Moderate Risk of Diabetes**\n\n"
+                   f"Confidence: **{probability:.2f}%**")
     else:
-        st.success("✅ The person is likely **Non-Diabetic**.")
+        st.success(f"✅ **Low Risk of Diabetes**\n\n"
+                   f"Confidence: **{probability:.2f}%**")
 
 # ================== OPTIONAL INFO ==================
 if st.checkbox("📊 Show Model Accuracy"):
     st.info("Model Accuracy on Training Data: **76.69%**")
+
+if st.checkbox("ℹ️ Medical Disclaimer"):
+    st.warning(
+        "This prediction is for **educational purposes only** and "
+        "should not be considered as medical advice."
+    )

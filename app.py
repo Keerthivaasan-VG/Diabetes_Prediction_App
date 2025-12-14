@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 
 # Load the trained logistic regression model
-with open("model/diabetes_model.pkl", "rb") as f:
+with open("diabetes_model.pkl", "rb") as f:
     Logr = pickle.load(f)
 
 st.title("Diabetes Prediction App")

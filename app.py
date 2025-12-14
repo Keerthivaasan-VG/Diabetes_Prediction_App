@@ -2,12 +2,23 @@ import streamlit as st
 import pickle
 import numpy as np
 
+
+# ================== PAGE CONFIG ==================
+st.set_page_config(
+    page_title="Brain Tumor Diagnosis",
+    page_icon="🧠",
+    layout="centered"
+)
+
 # Load the trained logistic regression model
 with open("diabetes_model.pkl", "rb") as f:
     Logr = pickle.load(f)
 
-st.title("Diabetes Prediction App")
-st.write("Enter the following details to predict diabetes:")
+# ================== HEADER ==================
+st.markdown("<h1 style='text-align:center;'>🧠 Brain Tumor Diagnosis System</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center;'>AI-assisted MRI image analysis</p>", unsafe_allow_html=True)
+st.markdown("---")
+
 
 # Input fields
 age = st.number_input("Age", min_value=1, max_value=100, value=25)
